@@ -1,0 +1,6 @@
+[Prekor config]
+        speclist = spec.dat   # list with spectra
+        wav_low = 4909        # initial wavelength 
+        wav_up = 4929         # final wavelength
+        nbin = 2048           # number of bins 256/512/1024/2048/4096
+        hjd = hjd             # field with epoch from header
