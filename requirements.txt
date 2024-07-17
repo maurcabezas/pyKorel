@@ -1,0 +1,8 @@
+pandas
+matplotlib
+astropy
+pathlib
+specutils
+configparser
+pyraf
+pytest
