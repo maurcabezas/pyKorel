@@ -20,8 +20,8 @@ def check_python_version():
 
 def unzip_spec_test():
     """Unzip spec_test.zip to the spec_test directory."""
-    zip_path = "spec_test.zip"
-    extract_dir = "spec_test"
+    zip_path = "etc/spec_test.zip"
+    extract_dir = "etc/spec_test"
 
     # Check if spec_test.zip exists
     if not os.path.isfile(zip_path):
