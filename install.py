@@ -3,7 +3,7 @@ import sys
 import subprocess
 import configparser
 import zipfile
-import shutil
+import re
 
 def get_current_path():
     """Return the current working directory."""
@@ -23,27 +23,20 @@ def unzip_spec_test():
     zip_path = "etc/spec_test.zip"
     extract_dir = "etc/"
 
-    # Check if spec_test.zip exists
     if not os.path.isfile(zip_path):
         print(f"Warning: {zip_path} not found in the repository root. Skipping extraction.")
         print("Please ensure spec_test.zip is present or manually create the spec_test directory with test FITS files.")
         return
 
     try:
-        # Create spec_test directory if it doesn't exist
         os.makedirs(extract_dir, exist_ok=True)
-        
-        # Extract the zip file
         with zipfile.ZipFile(zip_path, 'r') as zip_ref:
             zip_ref.extractall(extract_dir)
         print(f"Successfully extracted {zip_path} to {extract_dir}/")
-
-        # Verify extraction
         if not os.listdir(extract_dir):
-            print(f"Error: {extract_dir} is empty after extraction. The zip file may be corrupted.")
+            print(f"Warning: {extract_dir} is empty after extraction. The zip file may be corrupted.")
         else:
             print(f"Contents of {extract_dir}: {os.listdir(extract_dir)}")
-            
     except zipfile.BadZipFile:
         print(f"Error: {zip_path} is corrupted or not a valid zip file.")
         sys.exit(1)
@@ -67,7 +60,7 @@ def check_and_install_requirements():
 
     print("Installing dependencies...")
     for package in requirements:
-        if package.strip() and not package.startswith('#'):  # Skip empty lines and comments
+        if package.strip() and not package.startswith('#'):
             try:
                 subprocess.check_call([sys.executable, "-m", "pip", "install", package])
                 print(f"Successfully installed {package}")
@@ -98,9 +91,34 @@ def update_main_cfg(path):
         sys.exit(1)
 
 def update_initpath_in_files(path):
-    """Update initpath in relevant Python files (placeholder for future use)."""
-    # Currently, only main.cfg is updated. Add logic here if other files need initpath updates.
-    print("No additional files require initpath updates at this time.")
+    """Update initpath in specified Python files."""
+    files = ['src/prekor.py', 'src/multiprekor.py']  # Add 'src/korel.py', 'src/multikorel.py' if needed
+    pattern = re.compile(r"initpath\s*=\s*['\"].*?['\"]")
+
+    for file in files:
+        if not os.path.isfile(file):
+            print(f"Warning: {file} not found. Skipping initpath update for this file.")
+            continue
+
+        try:
+            with open(file, 'r') as f:
+                content = f.read()
+
+            # Replace the initpath line
+            new_content = pattern.sub(f"initpath = '{path}'", content)
+            if content == new_content:
+                print(f"Warning: No initpath line found in {file}. Ensure it contains 'initpath = ...'.")
+                continue
+
+            with open(file, 'w') as f:
+                f.write(new_content)
+            print(f"Updated initpath in {file} to: {path}")
+        except PermissionError:
+            print(f"Error: Permission denied when updating {file}. Run the script with appropriate permissions.")
+            sys.exit(1)
+        except Exception as e:
+            print(f"Error updating {file}: {e}")
+            sys.exit(1)
 
 if __name__ == "__main__":
     print("Starting pyKorel installation...")
