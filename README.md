@@ -64,9 +64,9 @@ python install.py
 
 The install.py script will:
 
-	- Install Python dependencies (numpy, matplotlib, astropy, specutils, configparser).
-	- Install the pyKorel components: Prekor, Multiprekor, Korel.py, and Multikorel.
-	- Attempt to compile the Korel Fortran code (requires gfortran and the Korel source code in the appropriate directory).
+- Install Python dependencies (numpy, matplotlib, astropy, specutils, configparser).
+- Install the pyKorel components: Prekor, Multiprekor, Korel.py, and Multikorel.
+- Attempt to compile the Korel Fortran code (requires gfortran and the Korel source code in the appropriate directory).
 
 Note: If you do not have the Korel source code, the installation will skip compiling Korel but still install the Python tools. You must manually place the compiled Korel executable in the appropriate directory (e.g., pyKorel/src/korel).
 
@@ -89,9 +89,9 @@ python ../src/prekor.py
 ```
 #### Expected Output:
 
-    - The script will process the test FITS files listed in speclist.txt (e.g., spec01_HJD2450000.00_combined.fits).
-    - It will compute the SNR for each spectrum, resample the spectra logarithmically, and generate output files in a directory named after the central wavelength and number of bins (e.g., 6562_1000).
-    - Console output will include:
+- The script will process the test FITS files listed in speclist.txt (e.g., spec01_HJD2450000.00_combined.fits).
+- It will compute the SNR for each spectrum, resample the spectra logarithmically, and generate output files in a directory named after the central wavelength and number of bins (e.g., 6562_1000).
+- Console output will include:
 
 ```bash
 INFO: Calculating SNR  -+-+-+-+
@@ -109,10 +109,10 @@ INFO: RV step: 0.123
 
 
 #### Output Files:
-    - 6562_1024/korel.dat: Korel input file with HJD, wavelengths, radial velocity steps, weights, and flux data.
-    - 6562_1024/prekor.res: Summary file with spectrum names, HJD, SNR, weights, and wavelength ranges.
-    - 6562_1024/asc/*.asc: Resampled ASCII spectra.
-    - 6562_1024/model/: Directory for model outputs (populated later by Korel).
+- 6562_1024/korel.dat: Korel input file with HJD, wavelengths, radial velocity steps, weights, and flux data.
+- 6562_1024/prekor.res: Summary file with spectrum names, HJD, SNR, weights, and wavelength ranges.
+- 6562_1024/asc/*.asc: Resampled ASCII spectra.
+- 6562_1024/model/: Directory for model outputs (populated later by Korel).
 
 Here 6562 is the central wavelenght and 1024 the number of pixels/bins.
 
@@ -148,9 +148,9 @@ DEBUG: Signal: 0.9862870173012894, Noise: 0.004942383381187716
 ```
 
 Troubleshooting:
-	- If you see errors (e.g., missing FITS files, invalid HJD headers), check that the speclist.txt file lists valid FITS files and that the prekor.par configuration file is correctly set up.
-    - If the SNR is zero for any spectrum, run with -d to inspect the debug output for issues like empty flux arrays or wavelength mismatches.
-    - Ensure the FITS files have valid WCS headers (e.g., CRVAL1, CDELT1, CUNIT1) and HJD keywords.
+- If you see errors (e.g., missing FITS files, invalid HJD headers), check that the speclist.txt file lists valid FITS files and that the prekor.par configuration file is correctly set up.
+- If the SNR is zero for any spectrum, run with -d to inspect the debug output for issues like empty flux arrays or wavelength mismatches.
+- Ensure the FITS files have valid WCS headers (e.g., CRVAL1, CDELT1, CUNIT1) and HJD keywords.
 
 ### Usage
 #### Configuration
@@ -166,25 +166,25 @@ nbin = 1000
 hjd = HJD
 ```
 
-    speclist: Path to a text file listing FITS files (one per line).
-    wav_low, wav_up: Wavelength range in Angstroms (e.g., 6550–6575 Å for the H-alpha region).
-    nbin: Number of bins for logarithmic resampling (e.g., 1000).
-    hjd: FITS header keyword for Heliocentric Julian Date (e.g., HJD).
+- speclist: Path to a text file listing FITS files (one per line).
+- wav_low, wav_up: Wavelength range in Angstroms (e.g., 6550–6575 Å for the H-alpha region).
+- nbin: Number of bins for logarithmic resampling (e.g., 1000).
+- hjd: FITS header keyword for Heliocentric Julian Date (e.g., HJD).
 
 For Korel.py, configure the korel.par file in the output directory (e.g., 6562_1000/korel.par) with parameters like orbital elements and disentangling options. Refer to the Korel documentation for details.
 
 ## FAQ
 
-    Q: What if I don’t have the Korel source code? A: pyKorel’s Python tools (Prekor, Multiprekor) will still work, but you need the compiled Korel executable to run Korel.py or Multikorel. Contact Petr Hadrava to obtain Korel.
+- Q: What if I don’t have the Korel source code? A: pyKorel’s Python tools (Prekor, Multiprekor) will still work, but you need the compiled Korel executable to run Korel.py or Multikorel. Contact Petr Hadrava to obtain Korel.
 
-    Q: Why is the SNR zero for some spectra? A: This could indicate a wavelength mismatch, empty flux arrays, or invalid FITS headers. Run with -d to inspect debug output and check prekor.par and FITS headers.
+- Q: Why is the SNR zero for some spectra? A: This could indicate a wavelength mismatch, empty flux arrays, or invalid FITS headers. Run with -d to inspect debug output and check prekor.par and FITS headers.
 
-    Q: How do I configure korel.par? A: Refer to the Korel documentation and the sample korel.par in etc/. Adjust parameters like orbital period, eccentricity, and wavelength range based on your system.
+- Q: How do I configure korel.par? A: Refer to the Korel documentation and the sample korel.par in etc/. Adjust parameters like orbital period, eccentricity, and wavelength range based on your system.
 
 
 ## Citation
 
 If you use pyKorel in your research, please cite:
 
-    Hadrava, P. (2004). "Fourier Disentangling of Composite Spectra." Publications of the Astronomical Institute of the Czech Academy of Sciences, 92, 15.
-    Cabezas, M. (2025). pyKorel: A Python Suite for Korel Spectral Disentangling. GitHub: https://github.com/maurcabezas/pyKorel.
+- **Hadrava, P. (2004)**. "Fourier Disentangling of Composite Spectra." Publications of the Astronomical Institute of the Czech Academy of Sciences, 92, 15.
+- **Cabezas, M. (2025)**. pyKorel: A Python Suite for Korel Spectral Disentangling. GitHub: https://github.com/maurcabezas/pyKorel.
