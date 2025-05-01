@@ -18,6 +18,6 @@ Korel is a powerful software package for disentangling composite spectra of bina
 Clone the repository and install the dependencies:
 
 ```sh
-git clone https://github.com/yourusername/py-Korel.git
-cd py-Korel
+git clone https://github.com/maurcabezas/pyKorel.git
+cd pyKorel
 pip install -r requirements.txt
