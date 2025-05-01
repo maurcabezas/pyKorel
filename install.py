@@ -21,7 +21,7 @@ def check_python_version():
 def unzip_spec_test():
     """Unzip spec_test.zip to the spec_test directory."""
     zip_path = "etc/spec_test.zip"
-    extract_dir = "etc/spec_test"
+    extract_dir = "etc/"
 
     # Check if spec_test.zip exists
     if not os.path.isfile(zip_path):
@@ -124,5 +124,5 @@ if __name__ == "__main__":
 
     print("pyKorel installation completed successfully!")
     print("To test the installation, navigate to the spec_test directory and run:")
-    print("  cd spec_test")
-    print("  python ../src/prekor.py")
+    print("  cd etc/spec_test")
+    print("  python ../../src/prekor.py")
